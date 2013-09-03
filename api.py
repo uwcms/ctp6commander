@@ -155,9 +155,9 @@ def status(hw, links):
         flag_cfg['values'] = [node.read() for node in flag_cfg['nodes']]
         # eventually do the whole dispatch all at once
         hw.dispatch()
-        flag_cfg['links'] = {}
+        output[flag]['links'] = {}
         for link in links:
             value = bool(flag_cfg['values'][link / 12].value()
                          & (1 << (link % 12)))
-            flag_cfg['links'][link] = (value != flag_cfg['bad'])
+            output[flag]['links'][link] = (value != flag_cfg['bad'])
     return output
