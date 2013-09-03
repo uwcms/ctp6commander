@@ -14,3 +14,4 @@ source env/bin/activate
 
 pip install argparse
 pip install flask
+pip install termcolor
