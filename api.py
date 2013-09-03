@@ -40,19 +40,20 @@ STATUS_FLAGS = {
 }
 
 
-def expand_links(links):
-    """Expand link-ranges in the form 'XX-YY'.
+def expand_links(linklists):
+    """Expand link-ranges in the form 'XX-YY,ZZ,QQ-RR'.
 
     Returns a generator which yields individual integer links.
 
     """
-    for link in links:
-        if '-' not in link:
-            yield int(link)
-        else:
-            low, high = tuple(link.split('-'))
-            for i in range(int(low), int(high) + 1):
-                yield i
+    for linklist in linklists:
+        for link in linklist.split(','):
+            if '-' not in link:
+                yield int(link)
+            else:
+                low, high = tuple(link.split('-'))
+                for i in range(int(low), int(high) + 1):
+                    yield i
 
 
 def build_masked_set(bank_index, links):
