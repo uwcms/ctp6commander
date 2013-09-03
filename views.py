@@ -1,14 +1,17 @@
 #!/usr/bin/env python
-''' An HTTP API for querying the status and capture RAMs of the CTP6.
+""" An HTTP API for querying the status and capture RAMs of the CTP6.
+
+The UI dynamism is all defined in the javascript/HTML.  This app only serves
+JSON data resulting from querying the H/W via IPBus.
 
 Author: Evan K. Friis, UW Madison
 
-'''
+"""
 import argparse
 import logging
 import os
 
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for
 
 import api
 #import uhal
@@ -20,17 +23,25 @@ HWINTERFACE = None
 
 @app.route('/')
 def index():
-    return render_template('dashboard.html')
+    """ Landing page. """
+    return render_template("interface.html")
 
 
 @app.route('/reset/<linkstring>')
 def reset(linkstring=None):
-    return ''.join(str(x) for x in api.expand_links(linkstring))
+    """ Reset a given set of transcievers.
+
+    If no links are specified (/reset/), all links are reset.
+
+    """
+    return ', '.join(str(x) for x in api.expand_links([linkstring]))
 
 
 @app.route('/status/<linkstring>')
 def status(linkstring=None):
+    """ Query the status of the links.  """
     return linkstring
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
