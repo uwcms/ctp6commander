@@ -4,7 +4,7 @@ Various python functions to issue/interpret IPBus commands over uHAL.
 
 """
 
-import copy
+import collections
 import logging
 
 log = logging.getLogger(__name__)
@@ -17,23 +17,23 @@ BANKS = [
 ]
 
 STATUS_FLAGS = {
-    'Overflow  ': {
+    'Overflow': {
         'prefix': 'GTRXUnderflow',
         'bad': True,
     },
-    'Underflow ': {
+    'Underflow': {
         'prefix': 'GTRXOverflow',
         'bad': True,
     },
-    'LossSync  ': {
+    'LossSync': {
         'prefix': 'GTRXLossOfSync',
         'bad': True,
     },
-    'PLLk OK   ': {
+    'PLLk OK': {
         'prefix': 'GTRXPLLKDet',
         'bad': False,
     },
-    'ErrDetect ': {
+    'ErrDetect': {
         'prefix': 'GTRXErrorDet',
         'bad': True,
     },
@@ -144,11 +144,10 @@ def capture(hw, links, ncapture, capture_char, expected_word_fn=None):
 def status(hw, links):
     """ Query the status of the given links.
 
-    Returns a dictionary mapping for each STATUS_FLAG type, which has a
-    sub-dictionary indicating the state of each link.
+    Returns a dictionary mapping each link to a STATUS_FLAG state dictionary.
 
     """
-    output = copy.deepcopy(STATUS_FLAGS)
+    output = collections.defaultdict({})
     for flag, flag_cfg in output.iteritems():
         flag_cfg['banks'] = [flag_cfg['prefix'] + bank for bank in BANKS]
         flag_cfg['nodes'] = [hw.getNode(bank) for bank in flag_cfg['banks']]
@@ -159,5 +158,5 @@ def status(hw, links):
         for link in links:
             value = bool(flag_cfg['values'][link / 12].value()
                          & (1 << (link % 12)))
-            output[flag]['links'][link] = (value != flag_cfg['bad'])
+            output[link][flag] = (value != flag_cfg['bad'])
     return output
