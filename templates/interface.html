@@ -3,22 +3,32 @@
   <head>
     <meta charset="utf-8">
     <title>CTP6 Commander</title>
-
     <link href="static/bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="static/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
-
   </head>
 
   <body>
     <div class="container">
 
-      <h1>Bootstrap starter template</h1>
-      <p>Use this document as a way to quick start any new project.<br> All you get is this message and a barebones HTML document.</p>
+      <h1>Link Status</h1>
+      <div id="control_bar">
+              <div class="form-horizontal">
+                      <input type="text" class="input-small" placeholder="Links"/>
+                      <button class="btn btn-danger">Query Status</button>
+              </div>
+      </div>
+      <div id="linkstatus"></div>
 
     </div> <!-- /container -->
-
     <!-- Placed at the end of the document so the pages load faster -->
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="static/bootstrap/js/bootstrap-transition.js"></script>
+    <script src="static/bootstrap/js/bootstrap.js"></script>
+
+    <script>
+            d3.select("#linkstatus").selectAll("div").data([4, 8, 3]).enter()
+            .append("div")
+            .text(function(d) {return d + "!";});
+    </script>
   </body>
 </html>
