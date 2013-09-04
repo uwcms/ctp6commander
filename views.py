@@ -10,8 +10,9 @@ Author: Evan K. Friis, UW Madison
 import argparse
 import logging
 import os
+import random
 
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, json
 
 import api
 #import uhal
@@ -27,20 +28,26 @@ def index():
     return render_template("interface.html")
 
 
-@app.route('/reset/<linkstring>')
+@app.route('/api/reset/<linkstring>')
 def reset(linkstring=None):
     """ Reset a given set of transcievers.
 
-    If no links are specified (/reset/), all links are reset.
+    Returns the number of transceivers which were reset.
 
     """
-    return ', '.join(str(x) for x in api.expand_links([linkstring]))
+    return json.jsonify({'nreset': 0})
 
 
-@app.route('/status/<linkstring>')
+@app.route('/api/status/<linkstring>')
 def status(linkstring=None):
     """ Query the status of the links.  """
-    return linkstring
+    links = list(api.expand_links([linkstring]))
+    fake_output = {}
+    for link in map(str, links):
+        fake_output[link] = {}
+        for flag in api.STATUS_FLAGS.keys():
+            fake_output[link][flag] = int(random.random() < 0.8)
+    return json.jsonify(**fake_output)
 
 
 if __name__ == "__main__":
