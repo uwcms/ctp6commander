@@ -1,0 +1,12 @@
+.linkstatusbadge {
+    padding: 7px;
+    width: 100px;
+}
+
+.linkstatusok {
+    background-color: #4DAF4A
+}
+
+.linkstatusbad {
+    background-color: #E41A1C
+}
