@@ -27,8 +27,9 @@ var CTPStatus = (function () {
         var flags = ['Overflow', 'Underflow',
             'LossSync', 'PLLk OK', 'ErrDetect'];
 
-        // add a header row.
-        var headerLabels = ['Link#'].concat(flags).concat(['', '']);
+        // Add a header row.  An extra column for the link# and one at the end
+        // for the link reset control.
+        var headerLabels = ['Link#'].concat(flags).concat(['']);
         console.log(headerLabels);
         d3.select("#linkstatus").selectAll('tr').data([null])
             .enter()
@@ -41,24 +42,29 @@ var CTPStatus = (function () {
 
         // reset button functions
         var resetLinkControl = {};
-        resetLinkControl.icon = "icon-refresh";
+        resetLinkControl.icon = "icon-repeat";
         resetLinkControl.callback = function(link) {
             d3.json('/api/reset/' + link, function(e, data) {
                 console.log("Reset link " + link + ": " + data);
             });
         };
 
-        d3.select("#linkstatus").selectAll('tr').data(links)
+        // function to generate the columns in a <tr>
+        var updateRowBadges = function(row, link) {
+        };
+
+        d3.select("#linkstatus").selectAll('tr .linkstatusrow').data(links)
             .enter()
             .append('tr')
                 .classed("linkstatusrow", true)
                 .each(function(link, i) {
                     // select the parent div
-                    var row = d3.select(this).selectAll("td");
-                    row.data([i]).enter().append('td')
+                    var row = d3.select(this).selectAll("td .linkrowlabel");
+                    row.data([link]).enter().append('td')
                         .classed("linkrowlabel", true)
                         .text(function(idx) {return idx;});
 
+                    row = d3.select(this).selectAll("td .linkstatusbadge");
                     row.data(flags)
                         .enter()
                         .append('td')
@@ -70,10 +76,13 @@ var CTPStatus = (function () {
                         })
                         .text(function(flag) { return flag; });
 
-                    row.data([resetLinkControl, resetLinkControl])
+                    row = d3.select(this).selectAll("td .linkstatuscontrol");
+                    row.data([resetLinkControl])
                         .enter()
                         .append('td')
-                        .text(function (x) { return link; });
+                        .append('span')
+                        .attr("class", function (x) { 
+                            return "linkstatuscontrol " + x.icon; });
 
                 });
     };
