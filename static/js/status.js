@@ -24,29 +24,57 @@ var CTPStatus = (function () {
 
         console.log(links);
 
-        var flags = ['Overflow', 'Underflow', 'LossSync', 'PLLk OK', 'ErrDetect'];
+        var flags = ['Overflow', 'Underflow',
+            'LossSync', 'PLLk OK', 'ErrDetect'];
 
-        d3.select("#linkstatus").selectAll('div').data(links)
+        // add a header row.
+        var headerLabels = ['Link#'].concat(flags).concat(['', '']);
+        console.log(headerLabels);
+        d3.select("#linkstatus").selectAll('tr').data([null])
             .enter()
-            .append('div')
+            .append('tr')
+            .each(function(dontcare, i) {
+                var row = d3.select(this).selectAll("th");
+                row.data(headerLabels).enter().append('th')
+                    .text(function(d) {return d;});
+            });
+
+        // reset button functions
+        var resetLinkControl = {};
+        resetLinkControl.icon = "icon-refresh";
+        resetLinkControl.callback = function(link) {
+            d3.json('/api/reset/' + link, function(e, data) {
+                console.log("Reset link " + link + ": " + data);
+            });
+        };
+
+        d3.select("#linkstatus").selectAll('tr').data(links)
+            .enter()
+            .append('tr')
+                .classed("linkstatusrow", true)
                 .each(function(link, i) {
-                    console.log(link);
                     // select the parent div
-                    var theParentDiv = d3.select(this).selectAll("span");
-                    theParentDiv.data([i]).enter().append('span').text(
-                        function(idx) {return idx;});
-                    theParentDiv.data(flags)
+                    var row = d3.select(this).selectAll("td");
+                    row.data([i]).enter().append('td')
+                        .classed("linkrowlabel", true)
+                        .text(function(idx) {return idx;});
+
+                    row.data(flags)
                         .enter()
-                        .append('span')
-                        // .classed("badge", true)
-                        .text(function(flag) { return flag; })
-                        .style("background-color",function(flag) {
-                            console.log(this);
+                        .append('td')
+                        .attr("class", function(flag) {
                             if (statusJsonData[link][flag]) {
-                                return "#4DAF4A";
+                                return "linkstatusbadge " + "linkstatusok";
                             } else
-                                return "#E41A1C";
-                        });
+                                return "linkstatusbadge " + "linkstatusbad";
+                        })
+                        .text(function(flag) { return flag; });
+
+                    row.data([resetLinkControl, resetLinkControl])
+                        .enter()
+                        .append('td')
+                        .text(function (x) { return link; });
+
                 });
     };
 
