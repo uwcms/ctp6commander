@@ -44,9 +44,9 @@ def status(linkstring=None):
     links = list(api.expand_links([linkstring]))
     fake_output = {}
     for link in map(str, links):
-        fake_output[link] = {}
+        fake_output[link] = []
         for flag in api.STATUS_FLAGS.keys():
-            fake_output[link][flag] = int(random.random() < 0.8)
+            fake_output[link].append((flag, int(random.random() < 0.8)))
     return json.jsonify(**fake_output)
 
 

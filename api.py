@@ -147,16 +147,15 @@ def status(hw, links):
     Returns a dictionary mapping each link to a STATUS_FLAG state dictionary.
 
     """
-    output = collections.defaultdict({})
+    output = collections.defaultdict([])
     for flag, flag_cfg in output.iteritems():
         flag_cfg['banks'] = [flag_cfg['prefix'] + bank for bank in BANKS]
         flag_cfg['nodes'] = [hw.getNode(bank) for bank in flag_cfg['banks']]
         flag_cfg['values'] = [node.read() for node in flag_cfg['nodes']]
         # eventually do the whole dispatch all at once
         hw.dispatch()
-        output[flag]['links'] = {}
         for link in links:
             value = bool(flag_cfg['values'][link / 12].value()
                          & (1 << (link % 12)))
-            output[link][flag] = (value != flag_cfg['bad'])
+            output[link].append((flag, (value != flag_cfg['bad'])))
     return output
