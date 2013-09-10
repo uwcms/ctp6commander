@@ -15,30 +15,16 @@ var CTPStatus = (function () {
         // each link is a div-row.
         // each flag is a span-col
         console.log("render");
-        var links = [];
+        var linkStatuses = [];
         for (var l in statusJsonData) {
-            links.push(l);
+            linkStatuses.push({
+                'link': l,
+                'theStatus': statusJsonData[l]
+            });
         }
         // sort by ascending links.
-        links.sort(function(a, b) { return parseInt(a, 10) > parseInt(b, 10); });
-
-        console.log(links);
-
-        var flags = ['Overflow', 'Underflow',
-            'LossSync', 'PLLk OK', 'ErrDetect'];
-
-        // Add a header row.  An extra column for the link# and one at the end
-        // for the link reset control.
-        var headerLabels = ['Link#'].concat(flags).concat(['']);
-        console.log(headerLabels);
-        d3.select("#linkstatus").selectAll('tr').data([null])
-            .enter()
-            .append('tr')
-            .each(function(dontcare, i) {
-                var row = d3.select(this).selectAll("th");
-                row.data(headerLabels).enter().append('th')
-                    .text(function(d) {return d;});
-            });
+        linkStatuses.sort(function(a, b) { 
+            return parseInt(a.link, 10) > parseInt(b.link, 10); });
 
         // reset button functions
         var resetLinkControl = {};
@@ -49,46 +35,65 @@ var CTPStatus = (function () {
             });
         };
 
-        // function to generate the columns in a <tr>
-        var updateRowBadges = function(row, link) {
-        };
+        // Our table.
+        var statusTable = d3.select("#linkstatus");
+        // Get the status flag types
+        var flags = [];
+        for (var i = 0; i < linkStatuses[0].theStatus.length; ++i) {
+            flags.push(linkStatuses[0].theStatus[i][0]);
+        }
 
-        d3.select("#linkstatus").selectAll('tr .linkstatusrow').data(links)
+        // Add a header row.  An extra column for the link# and one at the end
+        // for the link reset control.
+        var headerLabels = ['Link#'].concat(flags).concat(['Reset']);
+        var headerRow = statusTable.selectAll('tr .linkstatusheader')
+            .data([null]).enter()
+                .append('tr').classed('linkstatusheader', true);
+        headerRow.selectAll('th').data(headerLabels).enter()
+            .append('th').text(function(d) { return d; });
+
+        // create a row for each link and embed the status data
+        var rows = statusTable.selectAll('tr .linkstatusrow')
+            .data(linkStatuses)
             .enter()
-            .append('tr')
-                .classed("linkstatusrow", true)
-                .each(function(link, i) {
-                    // select the parent div
-                    var row = d3.select(this).selectAll("td .linkrowlabel");
-                    row.data([link]).enter().append('td')
-                        .classed("linkrowlabel", true)
-                        .text(function(idx) {return idx;});
+                .append('tr')
+                .classed("linkstatusrow", true);
 
-                    row = d3.select(this).selectAll("td .linkstatusbadge");
-                    row.data(flags)
-                        .enter()
-                        .append('td')
-                        .attr("class", function(flag) {
-                            if (statusJsonData[link][flag]) {
-                                return "linkstatusbadge " + "linkstatusok";
-                            } else
-                                return "linkstatusbadge " + "linkstatusbad";
-                        })
-                        .text(function(flag) { return flag; });
+        // give each row a link row label
+        rows.selectAll("td .linkrowlabel").data(
+                function(d) { return [d.link]; })
+            .enter()
+                .append('td')
+                .classed('linkrowlabel', true)
+                .text(function(link) { return link; });
 
-                    row = d3.select(this).selectAll("td .linkstatuscontrol");
-                    row.data([resetLinkControl])
-                        .enter()
-                        .append('td')
-                        .append('span')
-                        .attr("class", function (x) { 
-                            return "linkstatuscontrol " + x.icon; });
 
-                });
+        // populate the data
+        rows.selectAll('td .linkstatusbadge').data(
+                function(d) { return d.theStatus; })
+            .enter()
+                .append('td')
+                .attr("class", function(x) {
+                    if (x[1]) {
+                        return "linkstatusbadge " + "linkstatusok";
+                    } else
+                    return "linkstatusbadge " + "linkstatusbad";
+                })
+                .text(function(x) { return x[0]; });
+
+        // add a control for each row
+        rows.selectAll('td .linkresetcontrol')
+            .data(function(d) { return [[this, d]]; })
+            .enter()
+                .append('td')
+                .classed('linkresetcontrol', true)
+                    .append('span')
+                    .on("click", function(d) { console.log(d); })
+                    .style("cursor", "pointer")
+                    .classed('icon-repeat', true);
     };
 
     var doStatus = function(linkstring) {
-        console.log("do");
         getStatus(linkstring, renderStatus);
     };
 
