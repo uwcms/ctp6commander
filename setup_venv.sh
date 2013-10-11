@@ -8,7 +8,7 @@ VERSION=1.10.1
 curl -O https://pypi.python.org/packages/source/v/virtualenv/virtualenv-${VERSION}.tar.gz
 tar xzf virtualenv-${VERSION}.tar.gz
 
-python virtualenv-${VERSION}/virtualenv.py --system-site-packages env
+python2.6 virtualenv-${VERSION}/virtualenv.py --system-site-packages env
 
 source env/bin/activate
 

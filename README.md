@@ -10,12 +10,6 @@ Installation
 This package depends on a local installation of the microHAL, as well as a
 custom python environment.
 
-Sane version of python
-----------------------
-
-```shell
-source /cvmfs/cms.hep.wisc.edu/osg/app/cmssoft/cms/slc5_amd64_gcc462/external/python/2.7.3-cms4/etc/profile.d/init.sh
-```
 
 Installing microHAL
 -------------------
