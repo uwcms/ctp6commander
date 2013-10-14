@@ -46,8 +46,8 @@ def expand_links(linklists):
     Returns a generator which yields individual integer links.
 
     """
-    for linklist in linklists:
-        for link in linklist.split(','):
+    for ll in linklists:
+        for link in ll.split(','):
             if '-' not in link:
                 yield int(link)
             else:
@@ -147,8 +147,8 @@ def status(hw, links):
     Returns a dictionary mapping each link to a STATUS_FLAG state dictionary.
 
     """
-    output = collections.defaultdict([])
-    for flag, flag_cfg in output.iteritems():
+    output = collections.defaultdict(list)
+    for flag, flag_cfg in STATUS_FLAGS.iteritems():
         flag_cfg['banks'] = [flag_cfg['prefix'] + bank for bank in BANKS]
         flag_cfg['nodes'] = [hw.getNode(bank) for bank in flag_cfg['banks']]
         flag_cfg['values'] = [node.read() for node in flag_cfg['nodes']]

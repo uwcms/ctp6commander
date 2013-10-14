@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export CACTUS_HOME=cactus
+export CACTUS_HOME=../cactus
 
 export PATH=$CACTUS_HOME/trunk/cactuscore/uhal/tests/bin:$PATH
 export LD_LIBRARY_PATH=$CACTUS_HOME/trunk/cactuscore/extern/boost/RPMBUILD/SOURCES/lib:$LD_LIBRARY_PATH
