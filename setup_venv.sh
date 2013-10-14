@@ -10,6 +10,8 @@ tar xzf virtualenv-${VERSION}.tar.gz
 
 python2.6 virtualenv-${VERSION}/virtualenv.py --system-site-packages env
 
+THIS_DIR=`pwd`
+echo "export CTP6_CONNECTION=$THIS_DIR/ctp6_connections.xml" >> env/bin/activate
 source env/bin/activate
 
 pip install argparse
