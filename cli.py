@@ -24,37 +24,38 @@ def do_reset(hw, args):
     return api.reset(hw, args.links, args.power_down)
 
 
-def print_status_header(output, links):
+def print_status_header(links):#output, links):
     """ Print out the status header row for the desired links.
 
     Two horizontal lines, with the link label for each link between the lines.
 
     """
     def write_hdiv():
-        output('----------')
+        sys.stdout.write('----------')#output('----------')
         for underline in range(len(links)):
-            output('---')
-        output('\n')
+            sys.stdout.write('---')#output('---')
+        sys.stdout.write('\n')#output('\n')
     write_hdiv()
-    output('Flag      ')
+    sys.stdout.write('Flag      ')#output('Flag      ')
     for link in links:
-        output('%3i' % link)
-    output('\n')
+        sys.stdout.write('%3i' % link)#output('%3i' % link)
+    sys.stdout.write('\n')#output('\n')
     write_hdiv()
 
 
-def do_status(hw, args, output):
+def do_status(hw, args):#, output):
     """ Print out the status registers from all of the links.  """
     status_flags = api.status(hw, args.links)
-    print_status_header(output, args.links)
+    print(status_flags)
+    print_status_header(args.links)#output, args.links)
 
     for flag, flag_cfg in status_flags.iteritems():
-        output(flag)
+        sys.stdout.write(flag)#output(flag)
         for link in args.links:
             if flag_cfg['links'][link]:
-                output(colored(' * ', 'green'))
+                sys.stdout.write(colored(' * ', 'green'))#output(colored(' * ', 'green'))
             else:
-                output(colored(' E ', 'red'))
+                sys.stdout.write(colored(' E ', 'red'))#output(colored(' E ', 'red'))
         output('\n')
 
 
@@ -160,6 +161,9 @@ if __name__ == "__main__":
         'capture': do_capture
     }
 
-    commands[args.command](hw, args)
+    print hw
+    print args
 
+    commands[args.command](hw, args)
+    
     log.info("done.")
