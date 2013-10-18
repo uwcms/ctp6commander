@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Downloads virtualenv.py, sets up an environment, and installs dependencies.
+# ONLY needed for unfinished 
 # Author: Evan K. Friis, UW
 
 VERSION=1.10.1
@@ -14,6 +15,4 @@ THIS_DIR=`pwd`
 echo "export CTP6_CONNECTION=$THIS_DIR/ctp6_connections.xml" >> env/bin/activate
 source env/bin/activate
 
-pip install argparse
 pip install flask
-pip install termcolor
