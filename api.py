@@ -4,7 +4,6 @@ Various python functions to issue/interpret IPBus commands over uHAL.
 
 """
 
-import collections
 import logging
 
 log = logging.getLogger(__name__)
@@ -147,7 +146,7 @@ def status(hw, links):
     Returns a dictionary mapping each link to a STATUS_FLAG state dictionary.
 
     """
-    output = collections.defaultdict(list)
+    output = {}
     for flag, flag_cfg in STATUS_FLAGS.iteritems():
         flag_cfg['banks'] = [flag_cfg['prefix'] + bank for bank in BANKS]
         flag_cfg['nodes'] = [hw.getNode(bank) for bank in flag_cfg['banks']]
@@ -157,5 +156,7 @@ def status(hw, links):
         for link in links:
             value = bool(flag_cfg['values'][link / 12].value()
                          & (1 << (link % 12)))
+            if link not in output:
+                output[link] = []
             output[link].append((flag, (value != flag_cfg['bad'])))
     return output
