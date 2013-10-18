@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Downloads virtualenv.py, sets up an environment, and installs dependencies.
-# ONLY needed for unfinished 
+# ONLY needed for unfinished web interface.
 # Author: Evan K. Friis, UW
 
 VERSION=1.10.1
