@@ -46,17 +46,20 @@ def print_status_header(links):#output, links):
 def do_status(hw, args):#, output):
     """ Print out the status registers from all of the links.  """
     status_flags = api.status(hw, args.links)
-    print(status_flags)
     print_status_header(args.links)#output, args.links)
 
-    for flag, flag_cfg in status_flags.iteritems():
-        sys.stdout.write(flag)#output(flag)
+    # get labels of flags
+    flags = [x[0] for x in status_flags.values()[0]]
+
+    # Loop over each flag
+    for iflag, flag in enumerate(flags):
+        sys.stdout.write("%-11s" % flag)
         for link in args.links:
-            if flag_cfg['links'][link]:
+            if status_flags[link][iflag][1]:
                 sys.stdout.write(colored(' * ', 'green'))#output(colored(' * ', 'green'))
             else:
                 sys.stdout.write(colored(' E ', 'red'))#output(colored(' E ', 'red'))
-        output('\n')
+        sys.stdout.write('\n')
 
 
 def do_capture(hw, args):
@@ -161,9 +164,6 @@ if __name__ == "__main__":
         'capture': do_capture
     }
 
-    print hw
-    print args
-
     commands[args.command](hw, args)
-    
+
     log.info("done.")
