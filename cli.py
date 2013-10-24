@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 
 """ Command line interface to the CTP6. """
 
@@ -77,10 +77,10 @@ def do_capture(hw, args):
     capture = api.capture(hw, args.links, args.ncapture,
                           args.capture_char, expected_word_fn)
 
+    link_words = {}
+    nrows = 0
     for link in sorted(capture.keys()):
         capture_data = capture[link]
-        sys.stdout.write('link %5i ' % link)
-        result_strs = []
         expected_data = capture_data['expected']
         for idx, word in enumerate(capture_data['capture']):
             color_fn = lambda x: x
@@ -90,13 +90,23 @@ def do_capture(hw, args):
                     color_fn = lambda x: colored(x, 'green')
                 else:
                     color_fn = lambda x: colored(x, 'red')
-            result_strs.append(color_fn('%8x' % word))
 
-        sys.stdout.write(' '.join(result_strs))
-        sys.stdout.write('\n')
+            link_words.setdefault(link, []).append(color_fn(word))
+            nrows = len(link_words[link])
+
+    for i in sorted(link_words.keys()):
+        sys.stdout.write("link %2i   " % i)
+    sys.stdout.write("\n")
+
+    print "-" * len(link_words)*10
+
+    for i in range(nrows):
+        for j in sorted(link_words.keys()):
+            sys.stdout.write("%7x   " % link_words[j][i])
+        sys.stdout.write("\n")
 
 
-if __name__ == "__main__":
+def main():
     parser = argparse.ArgumentParser()
 
     parser.add_argument("command", choices=['reset', 'status', 'capture'],
@@ -167,3 +177,9 @@ if __name__ == "__main__":
     commands[args.command](hw, args)
 
     log.info("done.")
+
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
