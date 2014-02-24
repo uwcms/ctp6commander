@@ -1,4 +1,3 @@
-[ojalvo@ayinger ~]$ cd /cms/ojalvo/trigger_code/
 [ojalvo@ayinger trigger_code]$ cd ctp6commander/
 [ojalvo@ayinger ctp6commander]$ source environment.sh 
 [ojalvo@ayinger ctp6commander]$ /usr/bin/python cli.py --connection ctp6_connections.xml --verbose status
