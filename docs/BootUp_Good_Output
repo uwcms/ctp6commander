@@ -1,0 +1,110 @@
+FS-BOOT First Stage Bootloader (c) 2006-2011 PetaLogix
+Project name: WISC CTP6
+Build date: Jul 24 2013 17:25:20  
+Serial console: Uartlite
+FS-BOOT: Booting from FLASH.
+SDRAM :
+                Icache:ON
+                Dcache:ON
+        U-Boot Start:0xfec00000
+Flash: 128 MiB
+*** Warning - bad CRC, using default environment
+
+In:    ttyUL0
+Out:   ttyUL0
+Err:   serial
+Net:   aximac.a0000000
+MAC:   00:0a:35:00:26:6c
+U-BOOT for ctp6_mb
+
+Hit any key to stop autoboot:  0 
+## Booting kernel from FIT Image at e7800000 ...
+   Using 'conf@1' configuration
+   Trying 'kernel@1' kernel subimage
+     Description:  PetaLinux Kernel
+     Type:         Kernel Image
+     Compression:  gzip compressed
+     Data Start:   0xe78000f8
+     Data Size:    1517571 Bytes = 1.4 MiB
+     Architecture: MicroBlaze
+     OS:           Linux
+     Load Address: 0xf0000000
+     Entry Point:  0xf0000000
+     Hash algo:    crc32
+     Hash value:   0000b81d
+   Verifying Hash Integrity ... crc32+ OK
+## Flattened Device Tree from FIT Image at e7800000
+   Using 'conf@1' configuration
+   Trying 'fdt@1' FDT blob subimage
+     Description:  Flattened Device Tree blob
+     Type:         Flat Device Tree
+     Compression:  uncompressed
+     Data Start:   0xe79729e8
+     Data Size:    14558 Bytes = 14.2 KiB
+     Architecture: MicroBlaze
+     Hash algo:    crc32
+     Hash value:   79c830f6
+     Hash algo:    sha1
+     Hash value:   420f924c6690725f345ae2cdc69230772e624724
+   Verifying Hash Integrity ... crc32+ sha1+ OK
+   Booting using the fdt blob at 0xe79729e8
+   Uncompressing Kernel Image ... OK
+
+
+0x000001fa0000-0x000001fe0000 : "boot"
+0x000001fe0000-0x000002000000 : "bootenv"
+0x000002000000-0x000004000000 : "jffs2"
+0x000004000000-0x000006000000 : "jffs2rw"
+0x000006000000-0x000007800000 : "fpga"
+0x000007800000-0x000008000000 : "image"
+xilinx_spi 80000000.spi: master is unqueued, this is deprecated
+xilinx_spi 80000000.spi: at 0x80000000 mapped to 0xf80a0000, irq=1
+xilinx_axienet a0000000.axi-ethernet: TX_CSUM 0
+xilinx_axienet a0000000.axi-ethernet: RX_CSUM 0
+libphy: Xilinx Axi Ethernet MDIO: probed
+i2c /dev entries driver
+Device Tree Probing 'i2c'
+xilinx-iic #0 at 0x40000000 mapped to 0xF80E0000, irq=5
+Device Tree Probing 'i2c'
+xilinx-iic #0 at 0x30000000 mapped to 0xF8160000, irq=8
+of_xilinx_wdt: driver loaded (timeout=0 sec, nowayout=0)
+TCP: cubic registered
+NET: Registered protocol familoVFS: Mounted root (jffs2 filesystem) readonly on device 31:4.
+Freeing unused kernel memory: 118k freed
+Mounting proc: 
+Mounting var: 
+Populating /var: 
+Running local start scripts.
+/etc is now ram-backed
+Mounting sysfs:
+mdev: initialising /dev
+Creating /dev/flash/* device nodes
+Mounting devpts:
+Mounting all filesystem
+Production Mode detected.
+Mounting writeable /persistent partition (default mode: read-only)
+Writing to avago chip 0x28.
+Writing to avago chip 0x29.
+Writing to avago chip 0x2a.
+Writing to avago chip 0x2b.
+Starting background initialization of the Si5338 clock chip
+Setting hostname: 
+Bringing up network interfaces:
+net eth0: Promiscuous mode disabled.
+net eth0: Promiscuous mode disabled.
+net eth0: Promiscuous mode disabled.
+Starting portmap:
+Starting dropbear:
+
+Welcome to
+ _____       _           _      _
+| ___ \     | |         | |    (_)
+| |_/ / ___ | |_   __ _ | |     _  _ __   _   _ __  __
+|  __/ / _ \| __| / _` || |    | || '_ \ | | | |\ \/ /
+| |   |  __/| |_ | (_| || |____| || | | || |_| | >  <
+\_|    \___| \__| \__,_|\_____/|_||_| |_| \__,_|/_/\_\
+
+on CTP6
+
+[103] Jan 01 00:00:18 Running in background
+libphy: a0000000:07 - Link is Up - 1000/Full
