@@ -1,0 +1,78 @@
+[ojalvo@krieger ctp6_fe_uart_ipbus]$ make upload
+echo "connect mb mdm -debugdevice deviceNr 2; rst; connect mb mdm -debugdevice deviceNr 2; dow payload.elf; run" | xmd
+Xilinx Microprocessor Debugger (XMD) Engine
+Xilinx EDK 14.4 Build EDK_P.49d
+Copyright (c) 1995-2012 Xilinx, Inc.  All rights reserved.
+
+XMD% 
+XMD% 
+JTAG chain configuration
+--------------------------------------------------
+Device   ID Code        IR Length    Part Name
+ 1       042a2093          10        XC6VHX250T
+ 2       442a8093          10        XC6VHX380T
+
+MicroBlaze Processor Configuration :
+-------------------------------------
+Version............................8.40.b
+Optimization.......................Performance
+Interconnect.......................AXI-LE
+MMU Type...........................No_MMU
+No of PC Breakpoints...............2
+No of Read Addr/Data Watchpoints...0
+No of Write Addr/Data Watchpoints..0
+Instruction Cache Support..........on
+Instruction Cache Base Address.....0xf0000000
+Instruction Cache High Address.....0xffffffff
+Data Cache Support.................on
+Data Cache Base Address............0xf0000000
+Data Cache High Address............0xffffffff
+Exceptions  Support................on
+FPU  Support.......................off
+Hard Divider Support...............off
+Hard Multiplier Support............on - (Mul32)
+Barrel Shifter Support.............off
+MSR clr/set Instruction Support....on
+Compare Instruction Support........on
+Data Cache Write-back Support......off
+Fault Tolerance Support............off
+Stack Protection Support...........off
+
+Connected to "mb" target. id = 0
+Starting GDB server for "mb" target (id = 0) at TCP port no 1234
+System reset successfully
+
+WARNING: Connection Exists
+
+
+JTAG chain configuration
+--------------------------------------------------
+Device   ID Code        IR Length    Part Name
+ 1       042a2093          10        XC6VHX250T
+ 2       442a8093          10        XC6VHX380T
+
+Downloading Program -- payload.elf
+	    section, .vectors.reset: 0x00000000-0x00000007
+	    section, .vectors.sw_exception: 0x00000008-0x0000000f
+	    section, .vectors.interrupt: 0x00000010-0x00000017
+	    section, .vectors.hw_exception: 0x00000020-0x00000027
+	    section, .text: 0x00000050-0x00007f63
+	    section, .init: 0x00007f64-0x00007f9f
+	    section, .fini: 0x00007fa0-0x00007fbf
+	    section, .ctors: 0x00007fc0-0x00007fc7
+	    section, .dtors: 0x00007fc8-0x00007fcf
+	    section, .rodata: 0x00007fd0-0x00008090
+	    section, .sdata2: 0x00008091-0x00008097
+	    section, .data: 0x00008098-0x00008667
+	    section, .eh_frame: 0x00008668-0x0000866b
+	    section, .jcr: 0x0000866c-0x0000866f
+	    section, .bss: 0x00008670-0x0000876f
+	    section, .heap: 0x00008770-0x0000c76f
+	    section, .stack: 0x0000c770-0x0000e76f
+Download Progress..10.20.30.40.50.60.70.80.90..Done
+Setting PC with Program Start Address 0x00000000
+System Reset .... DONE
+
+Processor started. Type "stop" to stop processor
+
+RUNNING> 0

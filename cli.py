@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-""" Command line interface to the CTP6. """
+""" Command line interface to the CTP6. """  
 
 import argparse
 import logging
