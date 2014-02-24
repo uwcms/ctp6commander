@@ -1,0 +1,54 @@
+     Hash algo:    crc32
+     Has000b81d
+ ngrcxe79729e
+    Hashcrc32ure: MicroBlazees = 14.2 KiB
+     lue:   79c830f6
+     Hash algo:    sha1
+     Hash value:  24c66930772e624724
+g usin fdt blob at 0xe79729e8. crc32+ sha1+ OK
+   Uncssing KernK
+Early console on uartlite at 0x20000000
+bootconsole [earlyser0] 
+                        Ramdisk addr 0x, FDT at 0xe7972in ein3.0 (uwhepfpga@spaten.hepwisc.edu) gcc ersin 4..2201101 (prrelese(cosstol-NG 1.15.3) ) 45 FriJul 26 16:44:35 013
+eup_mmory: max_mapnr: 0xf00ry: min_low_pf 0n: 0xff000
+on 480 pagu: 0xff0on  DMA0xf0f]  ee zoch nmangemem 0On: ree_area_init_node: node 0, pgdat c0301108, nodemem_map c04000
+ DMA zgeeser
+early_prink_cosole  fro 0x2000000ffd000
+                                       pcpu-alr0 d32768 u32768*32768
+pcpu-all0 
+Built 1 zonn Zone order, morouping on.  Tot: 60960
+Kernel line: root=mtd:jrotfstyp=jffse=ttyUL0,9600 ro
+PID hash table entries: 1024 (order: 0, 4096 bytes)
+Dentry cache  table entries: 32768 (order: 5, 131072 bytes)
+Inode-cache hash table entries: 16384 (order: 4, 65536 bytes)
+Memory: 240068k/245760k available (2972k kernel code, 5692k reserved, 106k data, 68k bss, 118k init)
+Kernel virtual memory layout:
+  * 0xffffe000..0xfffff000  : fixmap
+  *0xffff00..ffffe000 : elyioremap
+  * 0000000..xfffd000 :vmalloc & ioremap
+NR_IRQS33
+nterrupttroller #0 at 0xf000000um_iq=13dgsen  foundefault
+syste #0 at 0xf0002000, iroblaze_tr_set_mo: utdown
+mcroblaze_timer_st_mde piodic
+Calbrin4832 BMIS pj=9664
+eshotcreate  rau
+N81dr: 4, 65536 bCP bind hash tabes: 8192(ordr68 bytes)
+TP: les onfigured (ed 8192 bind81 ren registereash table entr(order: , 4096 UDP-Lite hash taies: 256 (orde6 bytes)
+NET:RoC: Registered na socket transpoe.
+RPC: Registetransport moduleRegistered tcp t module.
+RPC: ed tcp NFSv4.1 bel transport mokipping unavailaT gpio -2 (reset: version 2.2. SUMMARY)  © 20Red Hat, Inc.
+ms been set to 46 layer SCSI gee) rier vrsion 04 oaed (ajr 54)
+io scheulernop egted
+io scheulr eadlnereisered
+io scheduler cfq registered (default)
+Serial: 8250/16550 driver, 4 ports, IRQ sharing disabled
+50000000.serial: ttyUL1 at MMIO 0x50000000 (irq = 7) is a uartlite
+70000000.serial: ttyUL2 at MMIO 0x70000000 (irq = 6) is a uartlite
+60000000.serial: ttyUL3 at MMIO 0x60000000 (irq = 4) is a uartlite
+20000000.serial: ttyUL0 at MMIO 0x20000000 (irq = 13) is a ued, bootconsole disaled
+Xilin SystemACE device driver major=254
+Inte001f00x00000 : "bootenv"in16bit bank. anfactur009uey abet A
+0x00000x0006000:"ffsr"
+                      x006000000008000  fga"
+                                            0x00070000000000000  imag"
+xlinx_p 000000si at 0x8000000 mapdto0f000,iq=1                      
