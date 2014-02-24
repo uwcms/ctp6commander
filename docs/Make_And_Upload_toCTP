@@ -1,0 +1,53 @@
+[ojalvo@ayinger softipbus]$ make
+cd tests/ && LOG_LEVEL="0x0" make all
+make[1]: Entering directory `/afs/hep.wisc.edu/cms/ojalvo/trigger_code/softipbus/tests'
+# Run all of the tests
+ls test_bytebuffer.exe test_buffer.exe test_circular_buffer.exe test_forwarding.exe test_packethandler.exe test_serialization.exe | xargs -n 1 -I{} sh -c "./{}"
+
+
+=== buffer tests ===
+ALL TESTS PASSED
+Tests run: 3
+
+
+=== test_bytebuffer ===
+ALL TESTS PASSED
+Tests run: 15
+
+
+=== circular buffer tests ===
+ALL TESTS PASSED
+Tests run: 21
+
+
+=== test_forwardingtransactionhandler ===
+ALL TESTS PASSED
+Tests run: 1
+
+
+=== test_packethandler ===
+ALL TESTS PASSED
+Tests run: 5
+
+
+=== test_serialization ===
+ALL TESTS PASSED
+Tests run: 10
+make[1]: Leaving directory `/afs/hep.wisc.edu/cms/ojalvo/trigger_code/softipbus/tests'
+$PETALINUX is defined, so we are cross compiling.
+Unset $PETALINUX if you want to run the integration tests.
+[ojalvo@ayinger softipbus]$ export CTPIP=192.168.1.32
+[ojalvo@ayinger softipbus]$ make upload2ctp
+scp bin/softipbus* root@192.168.1.32:/tmp
+root@192.168.1.32's password: 
+softipbus                                                                                                                                                                 100%   43KB  43.3KB/s   00:00    
+softipbus-forward                                                                                                                                                         100%   46KB  46.2KB/s   00:00    
+softipbus-forward-test                                                                                                                                                    100%   46KB  46.2KB/s   00:00    
+softipbus-serial                                                                                                                                                          100%   39KB  39.3KB/s   00:00    
+softipbus-test                                                                                                                                                            100%   46KB  45.5KB/s   00:00    
+[ojalvo@ayinger softipbus]$ make forwardonctp 
+# Connects to CTP, forwarding the softipbus-forward port,
+# and then executes the program uploaded by upload2ctp. 
+ssh -L 60003:0.0.0.0:60003 root@192.168.1.32 "killall softipbus-forward; /tmp/softipbus-forward"
+root@192.168.1.32's password: 
+killall: softipbus-forward: no process killed

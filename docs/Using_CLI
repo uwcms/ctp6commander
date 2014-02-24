@@ -1,0 +1,14 @@
+[ojalvo@ayinger ~]$ cd /cms/ojalvo/trigger_code/
+[ojalvo@ayinger trigger_code]$ cd ctp6commander/
+[ojalvo@ayinger ctp6commander]$ source environment.sh 
+[ojalvo@ayinger ctp6commander]$ /usr/bin/python cli.py --connection ctp6_connections.xml --verbose status
+INFO:__main__:Setting up connection: file://ctp6_connections.xml
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+Flag        0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+LossSync    E  E  E  *  E  E  E  *  E  *  *  *  E  E  E  *  E  E  E  E  E  E  E  *  E  E  E  *  E  *  E  E  E  E  *  *  E  E  E  E  E  E  E  E  E  E  *  * 
+PLLk OK     *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  E  E  E  *  E  *  E  E  E  E  *  *  *  *  *  *  *  *  *  *  *  *  *  * 
+Overflow    *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  * 
+ErrDetect   E  E  E  *  E  E  E  *  E  *  *  *  E  E  E  E  E  E  E  E  E  E  E  *  E  E  E  *  E  *  E  E  E  E  *  *  E  E  E  E  E  E  E  E  E  E  *  * 
+Underflow   *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  *  * 
+INFO:__main__:done.
